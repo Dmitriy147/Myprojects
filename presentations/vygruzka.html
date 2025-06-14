@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Название проекта 1 - Детали</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Дополнительные стили для страницы проекта */
+        .project-header {
+            background: linear-gradient(135deg, #0366d6 0%, #05264c 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+        
+        .project-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .project-demo img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-badge {
+            background: #e1f0ff;
+            color: #0366d6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ========= */
+        /* Стили для обычного состояния */
+        .project-demo img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Стили для увеличенного состояния */
+        .project-demo img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const image = document.getElementById('zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+            image.addEventListener('click', function() {
+                if (this.classList.contains('zoomed')) {
+                    // Если изображение уже увеличено - уменьшаем
+                    this.classList.remove('zoomed');
+                    overlay.style.display = 'none';
+                } else {
+                    // Увеличиваем изображение
+                    this.classList.add('zoomed');
+                    overlay.style.display = 'block';
+                }
+            });
+            
+            // Закрытие по клику на overlay
+            overlay.addEventListener('click', function() {
+                image.classList.remove('zoomed');
+                this.style.display = 'none';
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: white; text-decoration: none;">Мои проекты</a></h1>
+    </header>
+
+    <div class="project-header">
+        <h2>Выгрузка табеля рабочего времени СУДОС Цирконий-М</h2>
+        <p>Приложение для создания отчёта рабочего времени сотрудников в формате Excel на основе архивных сообщений о проходах сотрудников на объекте под управлением СУДОС Цирконий-М.</p>
+    </div>
+
+    <div class="project-content">
+        <section>
+            <h3>О проекте</h3>
+            <p>По требованию заказчика, на основе утверждённого шаблона  Excel, требовалось автоматизировать создание отчёта по фактической отработке групп сотрудников на рабочем месте на основе данных о входе/выходе на объект. Так же должен учитываться обеденный перерыв и опоздания относительно начала и окончания смены, указанного в БД сотрудников. </p>
+            
+            <div class="project-demo">
+                <img src="../gif/vygruzka.gif" alt="Демонстрация работы проекта">
+                <p>Внешний вид приложения</p>
+            </div>
+
+             <!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
+            <!-- Ваш существующий контейнер с изображением -->
+            <div class="project-demo">
+                <img src="../images/vygruzka-excel.bmp" alt="Демонстрация работы проекта" id="zoomable-image">
+                <p>Результат выгрузки в формате Excel (xlsx)</p>
+            </div>
+
+        </section>
+        
+        <section>
+            <h3>Основные функции</h3>
+            <div class="features-list">
+                <div class="feature-card">
+                    <h4>Кроссплатформенность</h4>
+                    <p>Возможность разворачивания программы на хостах с ОС Windows7-11x64/AstraLinux1.7.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Максимальная гибкость в работе и настройке</h4>
+                    <p>Полный набор фильтров по БД сотрудников. Настройка ключевых параметров в отдельной форме приложения.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Портабальность</h4>
+                    <p>Состав программы - бинарный файл и dll для встроенной БД. Файл конфигурации пересоздаётся при его отсутствии.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Используемые технологии</h3>
+            <div class="tech-badges">
+                <span class="tech-badge">Golang</span>
+                <span class="tech-badge">Fyne</span>
+                <span class="tech-badge">UDP client</span>
+                <span class="tech-badge">Slog</span>
+                <span class="tech-badge">Object-box</span>
+                <span class="tech-badge">Xlsx-go-templat</span>
+            </div>
+            <p>При старте программы считываются переменные из файла конфигурации и стартует UDP-клиент для определения ведущего. Затем выполняется считывание БД сотрудников и доступные даты протоколов сообщений для активации их в календаре. Календарь для фреймворка Fyne был дописан отдельно (добавлена подсветка выбранных дат, локлизация языка - русская). Все данные по сотрудникам и протоколам прохода обрабатываются в БД Object-box, которая выбиралась по параметрам быстродействия и для задач ознакомления и сравнения с аналогами. После окончания фильтрации сотрудников и выделения нужных для выгрузки, выполняется анализ по каждому сотруднику его времени нахождения на объекте по каждому дню интервала, вычитая время опозданий и игнорируя отсутствие на объекте в обеденный перерыв. Результаты заполняют шаблон формата xlsx, находящийся в теле бинарного файла и после заполнения происходит сохранение результата в файл.</p>
+        </section>
+              
+        <a href="../index.html" class="back-link">← Вернуться ко всем проектам</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Мои проекты. Все права защищены.</p>
+    </footer>
+</body>
+</html>
