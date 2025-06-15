@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <title>Название проекта 1 - Детали</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Дополнительные стили для страницы проекта */
+        .project-header {
+            background: linear-gradient(135deg, #0366d6 0%, #05264c 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+        
+        .project-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .project-demo img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-badge {
+            background: #e1f0ff;
+            color: #0366d6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ========= */
+        /* Стили для обычного состояния */
+        .project-demo img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Стили для увеличенного состояния */
+        .project-demo img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+			images.forEach(image => {
+				image.addEventListener('click', function() {
+					if (this.classList.contains('zoomed')) {
+						// Если изображение уже увеличено - уменьшаем
+						this.classList.remove('zoomed');
+						overlay.style.display = 'none';
+					} else {
+						// Увеличиваем изображение
+						this.classList.add('zoomed');
+						overlay.style.display = 'block';
+					}
+				});
+				
+				// Закрытие по клику на overlay
+				overlay.addEventListener('click', function() {
+					image.classList.remove('zoomed');
+					this.style.display = 'none';
+				});
+			});
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: white; text-decoration: none;">Мои проекты</a></h1>
+    </header>
+
+    <div class="project-header">
+        <h2>Телеграмм-бот для департамента организации</h2>
+        <p>Телеграмм-бот для нужд департамента предприятия.</p>
+    </div>
+
+    <div class="project-content">
+        <section>
+            <h3>О проекте</h3>
+            <p>Данный бот создавался для закрытого круга пользователей для запросов по телефонному справочнику, напоминаниям о днях рождения зарегистрированных сотрудников, поиска данных по отпускам на текущий год, мини-репозитория со служебной документацией и утилитами и полным функционалом параметрирования и управления БД с телефона.</p>
+            
+			<!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
+			
+            <div class="project-demo">
+                <img src="../gif/bot.gif" alt="Демонстрация работы проекта" class="zoomable-image">
+                <p>Внешний вид приложения</p>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Основные функции</h3>
+            <div class="features-list">
+                <div class="feature-card">
+                    <h4>Защита от хакеров</h4>
+                    <p>Помимо защиты от DDOS-атак от провайдера услуг и самого сервиса Телеграмм, связь с ботом выполнена с использованием сертификатов TLS и https. Аутентификация пользователей по уникальному ID.</p>
+                </div>
+				<div class="feature-card">
+                    <h4>Гибкость и мобильность</h4>
+                    <p>Полный доступ к управлению ботом и БД со смартфона администратора. Возможность изменения любого атрибута пользователя. Доступ к серверу через ssh с телефона. Обновление данных справочника и ДР простой заменой Excel файла.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Компактность</h4>
+                    <p>Состав программы - бинарный файл, файл конфигурации. Файлы справочника и отпусков, а так же БД SQLite загружаются отдельно.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Самоконтроль и мониторинг</h4>
+                    <p>Служба бота стоит в режиме автозапуска. При остановке и последующем запуске отправляется e-mail админу о рестарте бота. Так же из меню админа можно запросить статистику по работе бота с информацией о памяти, времени работы, числом запросов за сутки.</p>
+                </div>
+				<div class="feature-card">
+                    <h4>Логирование</h4>
+                    <p>Полное логирование с ротацией и доступом к логам со смартфона.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Используемые технологии</h3>
+            <div class="tech-badges">
+				<span class="tech-badge">Debian 10</span>
+                <span class="tech-badge">Golang</span>
+                <span class="tech-badge">SQLite3</span>
+                <span class="tech-badge">zerolog</span>
+				<span class="tech-badge">Cron-go</span> 
+				<span class="tech-badge">go-mail</span> 
+				<span class="tech-badge">xlsx</span>
+            </div>
+            <p>Бот развёрнут на базе Debian10 в облаке (20Гб/1Гб) в виде демона с автозапуском, паникой в лог и отправкой письма админу при перезапуске бота. Первая версия бота была написана на C# и там реализовался механизм ведения табеля сотрудников по объектам (командировки). Табель вёлся самостоятельно каждым сотрудником, а руководитель мог посмотреть/отредактировать/выгрузить табуль по отделу в виде Excel файла за любой месяц однако практика показала неактуальность этой опции и, в версии Golang, она была опущена. В качестве основы БД выбран SQLite3 т.к. такая база легко редактируется/просматривается на любом устройстве. БД телефонов, отпусков загружены в in-memory таблицу и максимально быстро формируется выборка по запросам. При загрузке на сервер новых  файлов xls in-memory таблицы перезагружаются новыми данными. Для формирования телефонного справочника xls используется отдельно написанный парсер-конвертер, который формирует файл xls на основе HTML-страницы с телефонами с сайта предприятия. Напоминания о днях рождения (для начальников) сделаны путём проверки всех ДР с текущей датой в 7 утра ежедневно по встроенному планировщику-горутине. Репозиторий файлов и ссылок доступен по атрибутам (просмотр, добавление) у пользователя (загрузка файлов до 20Мб-ограничено Телеграмм, остальное - ссылкой на облачные диски). Так же был реализован обмен сообщениями админа с клиентом на основе его ID.</p>
+        </section>
+              
+        <a href="../index.html" class="back-link">← Вернуться ко всем проектам</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Мои проекты. Все права защищены.</p>
+    </footer>
+</body>
+</html>
