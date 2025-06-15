@@ -110,26 +110,28 @@
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const image = document.getElementById('zoomable-image');
+            const images = document.querySelectorAll('.zoomable-image');
             const overlay = document.getElementById('overlay');
             
-            image.addEventListener('click', function() {
-                if (this.classList.contains('zoomed')) {
-                    // Если изображение уже увеличено - уменьшаем
-                    this.classList.remove('zoomed');
-                    overlay.style.display = 'none';
-                } else {
-                    // Увеличиваем изображение
-                    this.classList.add('zoomed');
-                    overlay.style.display = 'block';
-                }
-            });
-            
-            // Закрытие по клику на overlay
-            overlay.addEventListener('click', function() {
-                image.classList.remove('zoomed');
-                this.style.display = 'none';
-            });
+			images.forEach(image => {
+				image.addEventListener('click', function() {
+					if (this.classList.contains('zoomed')) {
+						// Если изображение уже увеличено - уменьшаем
+						this.classList.remove('zoomed');
+						overlay.style.display = 'none';
+					} else {
+						// Увеличиваем изображение
+						this.classList.add('zoomed');
+						overlay.style.display = 'block';
+					}
+				});
+				
+				// Закрытие по клику на overlay
+				overlay.addEventListener('click', function() {
+					image.classList.remove('zoomed');
+					this.style.display = 'none';
+				});
+			});
         });
     </script>
 </head>
@@ -148,16 +150,17 @@
             <h3>О проекте</h3>
             <p>По требованию заказчика, на основе утверждённого шаблона  Excel, требовалось автоматизировать создание отчёта по фактической отработке групп сотрудников на рабочем месте на основе данных о входе/выходе на объект. Так же должен учитываться обеденный перерыв и опоздания относительно начала и окончания смены, указанного в БД сотрудников. </p>
             
+			<!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
+			
             <div class="project-demo">
-                <img src="../gif/vygruzka.gif" alt="Демонстрация работы проекта">
+                <img src="../gif/vygruzka.gif" alt="Демонстрация работы проекта" class="zoomable-image">
                 <p>Внешний вид приложения</p>
             </div>
 
-             <!-- Добавляем overlay (подложку) -->
-            <div class="overlay" id="overlay"></div>
             <!-- Ваш существующий контейнер с изображением -->
             <div class="project-demo">
-                <img src="../images/vygruzka-excel.bmp" alt="Демонстрация работы проекта" id="zoomable-image">
+                <img src="../images/vygruzka-excel.bmp" alt="Демонстрация работы проекта" class="zoomable-image">
                 <p>Результат выгрузки в формате Excel (xlsx)</p>
             </div>
 

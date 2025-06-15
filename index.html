@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои проекты - GitHub Pages</title>
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Обновленные стили для увеличения изображений */
+        .project-gif img {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-gif img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            cursor: default; /* Убираем курсор-указатель в увеличенном состоянии */
+            pointer-events: none; /* Отключаем события мыши на увеличенном изображении */
+        }
+        
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+            cursor: pointer; /* Курсор-указатель только на оверлее */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,12 +47,15 @@
     </header>
 
     <main>
+        <!-- Добавляем overlay (подложку) -->
+        <div class="overlay" id="overlay"></div>
+        
         <section class="projects-grid">
             <!-- Проект 1 -->
             <article class="project-card">
                 <h2>Панель управления и мониторинга СУДОС</h2>
                 <div class="project-gif">
-                    <img src="images/restorepanel.bmp" alt="Демонстрация проекта 1">
+                    <img src="images/restorepanel.bmp" alt="Демонстрация проекта 1" class="zoomable-image">
                 </div>
                 <div class="project-description">
                     <p>Клиент-сервер для отображения состояния служб на серверах СУДОС Цирконий-М, а так же оркестрация управляющих команд для серверов и АРМов СУДОС. <br><span style="color: rgb(0, 255, 64);">(production date: 2024.04)</span></p>
@@ -30,7 +67,7 @@
             <article class="project-card">
                 <h2>Выгрузка табеля рабочего времени СУДОС</h2>
                 <div class="project-gif">
-                    <img src="images/vygruzka.bmp" alt="Демонстрация проекта">
+                    <img src="images/vygruzka.bmp" alt="Демонстрация проекта" class="zoomable-image">
                 </div>
                 <div class="project-description">
                     <p>Приложение для создания отчёта рабочего времени сотрудников в формате Excel на основе архивных сообщений о проходах сотрудников на объекте под управлением СУДОС Цирконий-М. <br><span style="color: rgb(0, 255, 64);">(production date: 2023.03)</span></p>
@@ -38,23 +75,23 @@
                 </div>
             </article>
 
-            <!-- Проект 2 -->
+            <!-- Проект 3 -->
             <article class="project-card">
                 <h2>Редактор ip-сокетов СУДОС</h2>
                 <div class="project-gif">
-                    <img src="images/qqq.bmp" alt="Демонстрация проекта">
+                    <img src="images/qqq.bmp" alt="Демонстрация проекта" class="zoomable-image">
                 </div>
                 <div class="project-description">
                     <p>Программа для создания и редактирования (dbf, fpt) уже имеющихся ip-сокетов СУДОС Цирконий-М. <br><span style="color: rgb(0, 255, 64);">(production date: )</span></p>
                     <a href="presentations/qqq.html" class="btn">Подробнее</a>
                 </div>
             </article>
-			
-            <!-- Проект 2 -->
+            
+            <!-- Проект 4 -->
             <article class="project-card">
                 <h2>=====</h2>
                 <div class="project-gif">
-                    <img src="images/qqq.bmp" alt="Демонстрация проекта">
+                    <img src="images/qqq.bmp" alt="Демонстрация проекта" class="zoomable-image">
                 </div>
                 <div class="project-description">
                     <p>======. <br><span style="color: rgb(0, 255, 64);">(production date: )</span></p>
@@ -67,5 +104,38 @@
     <footer>
         <p>&copy; 2025 Мои проекты. Все права защищены.</p>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+            images.forEach(image => {
+                image.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Предотвращаем всплытие события
+                    
+                    if (this.classList.contains('zoomed')) {
+                        this.classList.remove('zoomed');
+                        overlay.style.display = 'none';
+                    } else {
+                        // Сначала скрываем другие увеличенные изображения
+                        document.querySelectorAll('.zoomed').forEach(img => {
+                            img.classList.remove('zoomed');
+                        });
+                        
+                        this.classList.add('zoomed');
+                        overlay.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Закрытие по клику на overlay
+            overlay.addEventListener('click', function() {
+                document.querySelectorAll('.zoomed').forEach(img => {
+                    img.classList.remove('zoomed');
+                });
+                this.style.display = 'none';
+            });
+        });
+    </script>
 </body>
 </html>

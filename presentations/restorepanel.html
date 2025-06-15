@@ -72,7 +72,68 @@
             border-radius: 20px;
             font-size: 0.9rem;
         }
+		
+		 /* ========= */
+        /* Стили для обычного состояния */
+        .project-demo img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Стили для увеличенного состояния */
+        .project-demo img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
     </style>
+	<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+			images.forEach(image => {
+				image.addEventListener('click', function() {
+					if (this.classList.contains('zoomed')) {
+						// Если изображение уже увеличено - уменьшаем
+						this.classList.remove('zoomed');
+						overlay.style.display = 'none';
+					} else {
+						// Увеличиваем изображение
+						this.classList.add('zoomed');
+						overlay.style.display = 'block';
+					}
+				});
+				
+				// Закрытие по клику на overlay
+				overlay.addEventListener('click', function() {
+					image.classList.remove('zoomed');
+					this.style.display = 'none';
+				});
+			});
+        });
+    </script>
 </head>
 <body>
     <header>
@@ -90,13 +151,16 @@
             <p>При переводе СКУД объекта под управление ОС АстраЛинукс возникла потребность в упрощении администрирования СУДОС персоналом, привыкшим к работе в среде Windows.
                 Так же, в критических ситуациях, при восстановлении функционирования СКУД дежурным персоналом, имеется вероятность некорректного вмешательства в работу СКУД. Поэтому, для прозрачности текущего состояния системы и для блокировки некорректных действий персонала, была создана данная программа.
             </p>
+			
+			<!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
             
             <div class="project-demo">
-                <img src="../gif/restore-fyne.gif" alt="Демонстрация работы проекта">
+                <img src="../gif/restore-fyne.gif" alt="Демонстрация работы проекта" class="zoomable-image">
                 <p>Внешний вид клиента (версия с бинарником, фреймворк Fyne)</p>
             </div>
 			<div class="project-demo">
-                <img src="../gif/restore-fyne-web.gif" alt="Демонстрация работы проекта">
+                <img src="../gif/restore-fyne-web.gif" alt="Демонстрация работы проекта" class="zoomable-image">
                 <p>Внешний вид клиента (web-версия)</p>
             </div>
         </section>
