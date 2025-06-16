@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <title>Название проекта 1 - Детали</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Дополнительные стили для страницы проекта */
+        .project-header {
+            background: linear-gradient(135deg, #0366d6 0%, #05264c 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+        
+        .project-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .project-demo img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-badge {
+            background: #e1f0ff;
+            color: #0366d6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ========= */
+        /* Стили для обычного состояния */
+        .project-demo img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Стили для увеличенного состояния */
+        .project-demo img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+			images.forEach(image => {
+				image.addEventListener('click', function() {
+					if (this.classList.contains('zoomed')) {
+						// Если изображение уже увеличено - уменьшаем
+						this.classList.remove('zoomed');
+						overlay.style.display = 'none';
+					} else {
+						// Увеличиваем изображение
+						this.classList.add('zoomed');
+						overlay.style.display = 'block';
+					}
+				});
+				
+				// Закрытие по клику на overlay
+				overlay.addEventListener('click', function() {
+					image.classList.remove('zoomed');
+					this.style.display = 'none';
+				});
+			});
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: white; text-decoration: none;">Мои проекты</a></h1>
+    </header>
+
+    <div class="project-header">
+        <h2>Модуль стыковки тревожного освещения Gelios</h2>
+        <p>Программа для интеграции системы тревожного освещения Gelios и СУДОС Цирконий-М.</p>
+    </div>
+
+    <div class="project-content">
+        <section>
+            <h3>О проекте</h3>
+            <p>По просьбе объекта, закупившего стороннюю систему тревожного освещения Gelios, была выполнена стыковка СУДОС Цирконий-М по тревогам от периметровых датчиков на включение фонарей.</p>
+            
+			<!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
+			
+            <div class="project-demo">
+                <img src="../gif/gelios.gif" alt="Демонстрация работы проекта" class="zoomable-image">
+                <p>Внешний вид приложения</p>
+            </div>
+			<div class="project-demo">
+                <img src="../images/gelios2.bmp" alt="Демонстрация работы проекта" class="zoomable-image">
+                <p>Внешний вид приложения</p>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Основные функции</h3>
+            <div class="features-list">
+                <div class="feature-card">
+                    <h4>Включение/Отключение фонаря по тревоге</h4>
+                    <p>При получении тревоги от периметрового датчика формируется команда на включение нужного фонаря в Gelios.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Самоконтроль и мониторинг</h4>
+                    <p>Периодический опрос состояния фонарей и, при неисправности фонаря в ответе на запрос от Gelios, формирование тревоги в СУДОС о неисправности фонаря.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Компактность</h4>
+                    <p>Состав программы: gelios.exe – исполняемый файл программы; Newtonsoft.Json.dll – вспомогательная библиотека; alarm.txt – файл настройки соответствия тревог лампам.</p>
+                </div>
+				<div class="feature-card">
+                    <h4>Логирование</h4>
+                    <p>Полное логирование в формате csv с ротацией.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Используемые технологии</h3>
+            <div class="tech-badges">
+				<span class="tech-badge">WindowsXP-10/AstraLinux1.7.4</span>
+				<span class="tech-badge">C#</span>
+				<span class="tech-badge">.Net4.0</span>
+				<span class="tech-badge">.Net6.0</span>
+                <span class="tech-badge">WinForms/MetroModernUI</span>
+            </div>
+            <p>Перед стартом работы читается файл alarm.txt в папке с программой, в котором указано соответствие датчиков СУДОС фонарям Gelios. После запуска виден ярлык программы в трее (жёлтый-работает, красный-нет связи с Gelios) программа выполняет периодические запросы по UDP сервера Gelios о статусе сервера и состоянии фонарей. Если в запросе получена неисправность фонаря - формируется команда на сервер СУДОС о тревоге фонаря. Параллельно, при получении в СУДОС тревоги от датчика, программа получает сообщение по UDP от СУДОС, ищет соответствие датчика номеру фонаря и посылает команду на включение фонаря серверу Gelios. При работе с Gelios выяснилось, что данная система не подходит под требования тревожного освещения т.к. задержка при включении фонаря по тревоге составляет десятки секунд!</p>
+        </section>
+              
+        <a href="../index.html" class="back-link">← Вернуться ко всем проектам</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Мои проекты. Все права защищены.</p>
+    </footer>
+</body>
+</html>
