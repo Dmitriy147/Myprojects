@@ -11,6 +11,8 @@
     <style>
         /* Обновленные стили для увеличения изображений */
         .project-gif img {
+            max-width: 100%;
+            height: auto;
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -22,12 +24,10 @@
             transform: translate(-50%, -50%) scale(1);
             max-width: 90vw;
             max-height: 90vh;
-            z-index: 1001;
+            z-index: 1000;
             background: white;
             padding: 10px;
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            cursor: default; /* Убираем курсор-указатель в увеличенном состоянии */
-            pointer-events: auto;
         }
         
         .overlay {
@@ -38,8 +38,7 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.7);
-            z-index: 1000;
-            /* cursor: pointer; Курсор-указатель только на оверлее */
+            z-index: 999;
         }
     </style>
 </head>
