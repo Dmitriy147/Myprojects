@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+    <title>Прослушка rs485 в Цирконий-М</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Дополнительные стили для страницы проекта */
+        .project-header {
+            background: linear-gradient(135deg, #0366d6 0%, #05264c 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .project-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem 3rem;
+        }
+        
+        .project-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .project-demo img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #0366d6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-badge {
+            background: #e1f0ff;
+            color: #0366d6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* ========= */
+        /* Стили для обычного состояния */
+        .project-demo img {
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Стили для увеличенного состояния */
+        .project-demo img.zoomed {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            max-width: 90vw;
+            max-height: 90vh;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Затемнение фона */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 999;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.zoomable-image');
+            const overlay = document.getElementById('overlay');
+            
+			images.forEach(image => {
+				image.addEventListener('click', function() {
+					if (this.classList.contains('zoomed')) {
+						// Если изображение уже увеличено - уменьшаем
+						this.classList.remove('zoomed');
+						overlay.style.display = 'none';
+					} else {
+						// Увеличиваем изображение
+						this.classList.add('zoomed');
+						overlay.style.display = 'block';
+					}
+				});
+				
+				// Закрытие по клику на overlay
+				overlay.addEventListener('click', function() {
+					image.classList.remove('zoomed');
+					this.style.display = 'none';
+				});
+			});
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1><a href="../index.html" style="color: white; text-decoration: none;">Мои проекты</a></h1>
+    </header>
+
+    <div class="project-header">
+        <h2>Планировщик постановки/снятия датчиков СУДОС</h2>
+        <p>Планировщик автоматической постановки/снятия с охраны маловажных датчиков без участия оператора СУДОС Цирконий-М.</p>
+    </div>
+
+    <div class="project-content">
+        <section>
+            <h3>О проекте</h3>
+            <p>В процессе работы операторов СУДОС Цирконий-М ежедневно возникает задача в определённый момент выполнять процедуру постановки/снятия малозначимых средств охраны (столовая и т.п.). Было предложено создать внешний модуль планировщика таких задач.</p>
+            
+			<!-- Добавляем overlay (подложку) -->
+            <div class="overlay" id="overlay"></div>
+			
+            <div class="project-demo">
+                <img src="../images/sheduler.bmp" alt="Демонстрация работы проекта" class="zoomable-image">
+                <p>Внешний вид приложения</p>
+            </div>
+			<div class="project-demo">
+                <img src="../images/sheduler2.bmp" alt="Демонстрация работы проекта" class="zoomable-image">
+                <p>Внешний вид приложения</p>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Основные функции</h3>
+            <div class="features-list">
+				<div class="feature-card">
+					<h4>Клиент-сервер</h4>
+					<p>Клиент-серверная архитектура с использованием http-фреймворка Fyber.</p>
+				</div>
+				<div class="feature-card">
+                    <h4>Простота и функциональность</h4>
+                    <p>Сервер работает постоянно, не нагружая систему. Клиент подключается по-необходимости при редактировании. Имеется фильтрация по названиям УБ, селекция всех УБ/запланированных УБ.</p>
+                </div>
+				<div class="feature-card">
+                    <h4>Логирование</h4>
+                    <p>Логирование всех событий на сервере и на клиенте.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h3>Используемые технологии</h3>
+            <div class="tech-badges">
+				<span class="tech-badge">Windows/AstraLinux</span>
+                <span class="tech-badge">Golang</span>
+				<span class="tech-badge">Fiber</span>
+				<span class="tech-badge">SQLite3</span>
+                <span class="tech-badge">Fyne</span>
+                <span class="tech-badge">zerolog</span>
+            </div>
+            <p>Приложение представляет собой клиент-серверное приложение. На сервере запущен демон, который постоянно слушает порт UDP и определяет ip ведущего сервера СУДОС, у которого находится актуальная БД СУДОС. В отдельной горутине запущен встроенный в приложение планировщик, который на основе времени задачи, хранящейся локально в SQLite3 БД задач, формирует команду на ведущий сервер СУДОС о постановке/снятии с охраны УБ. Для редактирование БД с заданиями, создан клиент в виде бинарного файла с GUI на базе фреймворка Fyne. Клиент запускается на удалённом хосте, выполняется подключение и считывание БД заданий с сервера, далее используя внутренний API клиент-сервера выполняется добавление-изменение-удаление заданий в этой БД на сервере.</p>
+        </section>
+              
+        <a href="../index.html" class="back-link">← Вернуться ко всем проектам</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Мои проекты. Все права защищены.</p>
+    </footer>
+</body>
+</html>
