@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-	<meta http-equiv="Pragma" content="no-cache">
-	<meta http-equiv="Expires" content="0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Мои проекты - GitHub Pages</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         /* Обновленные стили для увеличения изображений */
+        .project-gif {
+            cursor: pointer;
+        }
+        
         .project-gif img {
             max-width: 100%;
             height: auto;
-            cursor: pointer;
             transition: transform 0.3s ease;
         }
         
@@ -21,9 +24,9 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(1);
-            max-width: 90vw;
-            max-height: 90vh;
+            transform: translate(-50%, -50%) scale(1.05);
+            max-width: 95vw;
+            max-height: 95vh;
             z-index: 1000;
             background: white;
             padding: 10px;
@@ -57,7 +60,7 @@
             <article class="project-card">
                 <h2>Панель управления и мониторинга СУДОС</h2>
                 <div class="project-gif">
-                    <img src="images/restorepanel.bmp" alt="Демонстрация проекта 1" class="zoomable-image">
+                    <img src="images/restorepanel.bmp" alt="Демонстрация проекта 1">
                 </div>
                 <div class="project-description">
                     <p>Клиент-сервер для отображения состояния служб на серверах СУДОС Цирконий-М, а так же оркестрация управляющих команд для серверов и АРМов СУДОС. <br><span style="color: rgb(182, 13, 7);">(production date: 2024.04)</span></p>
@@ -161,7 +164,7 @@
                     <a href="presentations/bot.html" class="btn">Подробнее</a>
                 </div>
             </article>			
-        </section>
+       </section>
     </main>
 
     <footer>
@@ -169,29 +172,24 @@
     </footer>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const images = document.querySelectorAll('.zoomable-image');
+            const imageContainers = document.querySelectorAll('.project-gif');
             const overlay = document.getElementById('overlay');
             
-            images.forEach(image => {
-                image.addEventListener('click', function(e) {
-                    e.stopPropagation(); // Предотвращаем всплытие события
-                    
-                    if (this.classList.contains('zoomed')) {
-                        this.classList.remove('zoomed');
+            imageContainers.forEach(container => {
+                container.addEventListener('click', function(e) {
+                    const img = this.querySelector('img');
+                    if (img.classList.contains('zoomed')) {
+                        img.classList.remove('zoomed');
                         overlay.style.display = 'none';
                     } else {
-                        // Сначала скрываем другие увеличенные изображения
-                        document.querySelectorAll('.zoomed').forEach(img => {
-                            img.classList.remove('zoomed');
-                        });
-                        
-                        this.classList.add('zoomed');
+                        document.querySelectorAll('.zoomed').forEach(i => i.classList.remove('zoomed'));
+                        img.classList.add('zoomed');
                         overlay.style.display = 'block';
                     }
+                    e.stopPropagation();
                 });
             });
             
-            // Закрытие по клику на overlay
             overlay.addEventListener('click', function() {
                 document.querySelectorAll('.zoomed').forEach(img => {
                     img.classList.remove('zoomed');
