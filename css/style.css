@@ -34,7 +34,7 @@ main {
 
 /* Обновленные стили для карточки проекта */
 .project-card {
-	text-align: center; /* Центрирование заголовка */
+    text-align: center;
     background: white;
     border-radius: 8px;
     overflow: hidden;
@@ -49,28 +49,22 @@ main {
     transform: translateY(-5px);
 }
 
-.project-gif-container {
-    width: 100%;
+.project-gif {
+    position: relative;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Изменено с center на flex-start */
+    align-items: center;
+    min-height: 250px;
+    padding: 15px 0;
     background: #f8f8f8;
-    overflow: hidden; /* Скрываем возможные артефакты */
-}
-
-.project-gif {
-    width: 100%; /* Занимает всю ширину контейнера */
-    height: auto; /* Сохраняет пропорции */
-    object-fit: contain; /* Гарантирует полное отображение */
-    display: block;
-    max-height: 250px; /* Ограничение максимальной высоты */
+    overflow: hidden;
 }
 
 .project-gif img {
+    width: auto;
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
+    display: block;
     object-fit: contain;
 }
 
@@ -92,7 +86,7 @@ main {
 
 .btn {
     display: inline-block;
-	align-self: center; /* Центрирование кнопки */
+    align-self: center;
     background: #0366d6;
     color: white;
     padding: 0.5rem 1rem;
@@ -118,10 +112,18 @@ footer {
     color: white;
 }
 
-
 /* Для мобильных устройств */
 @media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
     .project-gif {
-        max-height: 200px;
+        min-height: 200px;
+        padding: 20px 0;
+    }
+    
+    .project-card {
+        margin-bottom: 15px;
     }
 }
